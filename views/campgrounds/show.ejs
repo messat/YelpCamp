@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
+<% layout('layout/boilerplate') -%>
+
     <h1><%= campground.title %></h1>
-    <h2><%= campground.location %></h2> 
+    <h2><%= campground.location %></h2>
+    <image src="<%= campground.image %>" alt=""/>
+    <p><%= campground.description %></p>
     <footer>
         <a href=<%= `/campgrounds/${campground._id}/edit` %>>Edit Campground</a>
         <br>
@@ -16,5 +12,3 @@
         </form>
         <a href="/campgrounds">All campgrounds</a>
     </footer>
-</body>
-</html>
