@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const Campground = require('./models/campground');
 const methodOverride = require('method-override');
 const engine = require('ejs-mate')
+const Joi = require('joi');
+const {campgroundSchema} = require('./schemas.js')
+
 const catchAsync = require('./utils/catchAsync')
 const ExpressError = require("./utils/ExpressError")
 
@@ -36,7 +39,16 @@ app.set('view engine', 'ejs')
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true}))
 
-
+const validateSchema = (req,res,next) =>{
+    
+    const {error } = campgroundSchema.validate(req.body)
+    if(error){
+        const msg = error.details.map(el => el.message).join(",")
+        throw new ExpressError(msg, 400)
+    } else {
+        next()
+    }
+}
 
 
 app.get('/', (req,res)=>{
@@ -66,16 +78,16 @@ app.get('/campgrounds/:id/edit', catchAsync(async(req,res)=>{
     res.render('campgrounds/edit', {findCampgroundById})
 }))
 
-app.post('/campgrounds', catchAsync(async (req,res, next)=>{
-        if(!req.body.campground){
-            throw new ExpressError("Invalid campground data", 400)
-        }
+app.post('/campgrounds', validateSchema, catchAsync(async (req,res, next)=>{
+        // if(!req.body.campground){
+        //     throw new ExpressError("Invalid campground data", 400)
+        // }
         const newCampground = new Campground(req.body.campground)
         await newCampground.save()
         res.redirect(`/campgrounds/${newCampground._id}`)
 }))
 
-app.put('/campgrounds/:id', catchAsync(async(req,res)=>{
+app.put('/campgrounds/:id', validateSchema, catchAsync(async(req,res)=>{
     const {id} = req.params
     const {campground} = req.body
     const updateCampground = await Campground.findByIdAndUpdate(id, campground, {new: true})
@@ -93,7 +105,6 @@ app.all('*', (req,res, next)=>{
 })
 
 app.use((err, req,res, next)=>{
-    console.log(Object.keys(err))
     const {statusCode = 500} = err
     if(!err.message) {
         err.message = "Something went wrong. Please try again"
