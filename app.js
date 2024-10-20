@@ -10,7 +10,8 @@ const {campgroundSchema, reviewSchema} = require('./schemas.js')
 const Review = require('./models/reviews.js')
 
 const catchAsync = require('./utils/catchAsync')
-const ExpressError = require("./utils/ExpressError")
+const ExpressError = require("./utils/ExpressError");
+const campground = require('./models/campground');
 
 async function mongooseServerConnect() {
     try {
@@ -79,7 +80,7 @@ app.get('/campgrounds/new', (req,res)=>{
 
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const {id} =req.params
-    const campground = await Campground.findById(id)
+    const campground = await Campground.findById(id).populate('reviews')
     res.render('campgrounds/show', {campground})
 }))
 
@@ -98,11 +99,18 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req,res, next)=>{
 app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req,res) => {
     const {id} = req.params
     const campground = await Campground.findById(id)
-    const review = new Review(req.body)
+    const review = new Review(req.body.review)
     campground.reviews.push(review)
     await review.save()
     await campground.save()
     res.redirect(`/campgrounds/${campground._id}`)
+}))
+
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req,res) => {
+    const {id, reviewId} = req.params
+    await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
+    await Review.findByIdAndDelete(reviewId)
+    res.redirect(`/campgrounds/${id}`)
 }))
 
 
@@ -118,6 +126,7 @@ app.delete('/campgrounds/:id', catchAsync(async (req,res)=> {
     await Campground.findByIdAndDelete(id)
     res.redirect('/campgrounds')
 }))
+
 
 
 app.all('*', (req,res, next)=>{
