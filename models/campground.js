@@ -21,7 +21,6 @@ campgroundSchema.post('findOneAndDelete', async function(doc) {
             }
         })
     }
-    console.log(doc); // Will not be executed
   });
 
 module.exports= mongoose.model('Campground', campgroundSchema)
