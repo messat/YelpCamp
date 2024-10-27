@@ -7,7 +7,7 @@ const engine = require('ejs-mate')
 const ExpressError = require("./utils/ExpressError");
 const campgroundRoutes = require('./routes/campground.js')
 const reviewRoutes = require('./routes/review.js')
-
+const session = require('express-session')
 async function mongooseServerConnect() {
     try {
         await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
@@ -35,8 +35,19 @@ app.set('view engine', 'ejs')
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true}))
-
 app.use(express.static(path.join(__dirname,'/public')))
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 3,
+        maxAge: 1000 * 60 * 60 * 24 * 3
+    }
+}
+app.use(session(sessionConfig))
 
 
 app.use('/campgrounds', campgroundRoutes)
