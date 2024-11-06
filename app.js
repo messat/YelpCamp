@@ -5,8 +5,11 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const engine = require('ejs-mate')
 const ExpressError = require("./utils/ExpressError");
+
 const campgroundRoutes = require('./routes/campground.js')
 const reviewRoutes = require('./routes/review.js')
+const userRoutes = require('./routes/user.js')
+
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
@@ -70,8 +73,9 @@ app.use((req,res,next)=>{
 })
 
 
-app.use('/campgrounds', campgroundRoutes)
 
+app.use('/', userRoutes)
+app.use('/campgrounds', campgroundRoutes)
 app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 
