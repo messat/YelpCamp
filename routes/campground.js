@@ -3,7 +3,8 @@ const router = express.Router()
 const {isLoggedIn, validateCampground, verifyAuthor} = require('../validateMiddleware.js');
 const {index, newCampgroundForm, createCampground, displayCampground, editCampground, updateCampground, deleteCampground} = require('../controller/campgrounds.js')
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const {storage} = require('../cloudinary/index.js')
+const upload = multer({storage })
 
 const catchAsync = require('../utils/catchAsync')
 
