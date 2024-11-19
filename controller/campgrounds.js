@@ -1,4 +1,8 @@
+const campground = require('../models/campground');
 const Campground = require('../models/campground');
+const multer  = require('multer')
+const {storage} = require('../cloudinary/index.js')
+
 
 module.exports.index = async (req,res) => {
     const campgrounds = await Campground.find({})
@@ -34,8 +38,9 @@ module.exports.editCampground = async(req,res)=>{
     res.render('campgrounds/edit', {findCampgroundById})
 }
 
-module.exports.createCampground = async (req,res, next)=>{
+module.exports.createCampground = async (req,res, next)=>{  
     const newCampground = new Campground(req.body.campground)
+    newCampground.images = req.files.map(file => ({url: file.path, filename: file.filename}))
     newCampground.author = req.user._id
     await newCampground.save()
     req.flash('success', 'Successfully created a campground!')
