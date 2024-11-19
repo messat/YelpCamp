@@ -10,11 +10,7 @@ const catchAsync = require('../utils/catchAsync')
 
 router.route('/')
     .get(catchAsync(index))
-    // .post(isLoggedIn, validateCampground, catchAsync(createCampground))
-    .post(upload.array('image'), (req,res)=>{
-        console.log(req.body, req.files)
-        res.send("It worked")
-    })
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(createCampground))
 
 router.route('/new')
     .get(isLoggedIn, newCampgroundForm)
