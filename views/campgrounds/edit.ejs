@@ -2,7 +2,7 @@
         <div class="row">
             <h1 class="text-center">Edit Campground</h1>
             <div class="col-6 offset-3">
-                <form action=<%=  `/campgrounds/${findCampgroundById._id}?_method=PUT` %> method="POST" novalidate class="validated-form">
+                <form action=<%=  `/campgrounds/${findCampgroundById._id}?_method=PUT` %> method="POST" novalidate class="validated-form" enctype='multipart/form-data'>
                     <div class="mb-3">
                         <label class="form-label" for="title">Title</label>
                         <input class="form-control" type="text" id="title" name="campground[title]" value="<%= findCampgroundById.title %>" required>
@@ -23,16 +23,7 @@
                             Please provide a campground location.
                           </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="image">Image URL</label>
-                        <input class="form-control" type="text" id="image" name="campground[image]" value="<%= findCampgroundById.image %>" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                          </div>
-                          <div class="invalid-feedback">
-                            Please provide hyperlink for the campground image.
-                          </div>
-                    </div>
+                    
         
                     <div class="mb-3">
                         <label class="form-label" for="price">Campground Price</label>
@@ -59,11 +50,20 @@
                             Please provide a valid description.
                           </div>
                     </div>
+                    <div class="mb-4">
+                      <label for="image" class="mb-2" >Add more image(s)...</label>
+                    <input type="file" class="form-control" name="image" id="image" multiple>
+                      <div class="valid-feedback">
+                          Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                          Please provide hyperlink for the campground image.
+                        </div>
+                  </div>
                     <div class="mb-3">
                         <button class="btn btn-info">Update Campground</button>
                     </div>
                 </form>
                 <a href=<%= `/campgrounds/${findCampgroundById._id}` %>><--Back to <%= findCampgroundById.title %></a>
             </div>
-        
         </div>
