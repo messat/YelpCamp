@@ -24,18 +24,6 @@
                     Please provide a campground location.
                   </div>
             </div>
-            <input type="file" name="image" multiple>
-            <!-- <div class="mb-3">
-                <label class="form-label" for="image">Image URL</label>
-                <input class="form-control" type="text" id="image" name="campground[image]" required>
-                <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                <div class="invalid-feedback">
-                    Please provide hyperlink for the campground image.
-                  </div>
-            </div> -->
-
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
             <div class="input-group mb-3">
@@ -60,6 +48,10 @@
                 <div class="invalid-feedback">
                     Please provide a valid description.
                   </div>
+            </div>
+            <div class="mb-4">
+              <label for="images" class="mb-2">Upload Images</label>
+              <input class="form-control" type="file" name="image" id="images" multiple>
             </div>
             <div class="mb-3">
                 <button class="btn btn-success">Add New Campground</button>

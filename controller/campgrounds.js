@@ -55,7 +55,6 @@ module.exports.updateCampground = async(req,res)=>{
     const updateCampground = await Campground.findByIdAndUpdate(id, campground, {new: true})
     updateCampground.images.push(...imgs)
     await updateCampground.save()
-    console.log(updateCampground)
     req.flash('success', 'Successfully updated campground')
     res.redirect(`/campgrounds/${updateCampground._id}`)
 }
