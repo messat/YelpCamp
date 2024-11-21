@@ -32,7 +32,7 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000)
         const price = Math.floor(Math.random() * 20) + 10
         const camp = new Campground({
-            author: '672b85e34e7e601d91378217',
+            author: '673a06aa93846dbd44ed0b52',
             title: `${template(descriptors)} ${template(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             images: [
@@ -41,11 +41,11 @@ const seedDB = async () => {
                   filename: 'YelpCamp/thkgdhx1dki4a0wxqox1',
                 },
                 {
-                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732042016/YelpCamp/nbaco6ildf4khku5gma9.webp',
+                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732209536/Wall_street_vap5pr.webp',
                   filename: 'YelpCamp/nbaco6ildf4khku5gma9',
                 },
                 {
-                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732042021/YelpCamp/a4qtvf8qzyzi968rgw6v.jpg',
+                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732209558/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006_mw461o.jpg',
                   filename: 'YelpCamp/a4qtvf8qzyzi968rgw6v',
                 }
               ],
