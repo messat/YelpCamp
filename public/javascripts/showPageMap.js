@@ -1,13 +1,18 @@
-const coordinatesFinder = JSON.parse(campground).geometry.coordinates
+const coordinatesFinder = JSON.parse(campground)
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
-  container: 'map', // container ID
-  style: 'mapbox://styles/mapbox/streets-v12', // style URL
-  center: coordinatesFinder, // starting position [lng, lat]
-  zoom: 10, // starting zoom
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v12', 
+  center: coordinatesFinder.geometry.coordinates, 
+  zoom: 10, 
 });
 
-//pin - marker
 new mapboxgl.Marker()
-  .setLngLat(coordinatesFinder)
+  .setLngLat(coordinatesFinder.geometry.coordinates)
+  .setPopup(
+    new mapboxgl.Popup({ offset: 25})
+    .setHTML(
+      `<h4>${coordinatesFinder.title}</h4><p><b>${coordinatesFinder.location}</b></p>`
+    )
+  )
   .addTo(map)
