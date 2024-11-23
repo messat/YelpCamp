@@ -32,21 +32,25 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000)
         const price = Math.floor(Math.random() * 20) + 10
         const camp = new Campground({
-            author: '673a06aa93846dbd44ed0b52',
+            author: '67422100f1f62550c661fa2f',
             title: `${template(descriptors)} ${template(places)}`,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            geometry: {
+               type: 'Point', 
+               coordinates: [ -87.63236, 41.881954 ] 
+            },
             images: [
                 {
-                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732042014/YelpCamp/thkgdhx1dki4a0wxqox1.webp',
-                  filename: 'YelpCamp/thkgdhx1dki4a0wxqox1',
+                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732386815/NY-Penthouse1_ijytno.jpg',
+                  filename: 'YelpCamp/NY-Penthouse1_ijytno',
                 },
                 {
-                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732209536/Wall_street_vap5pr.webp',
-                  filename: 'YelpCamp/nbaco6ildf4khku5gma9',
+                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732386815/NY-Penthouse2_jieb4l.jpg',
+                  filename: 'YelpCamp/NY-Penthouse2_jieb4l',
                 },
                 {
-                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732209558/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006_mw461o.jpg',
-                  filename: 'YelpCamp/a4qtvf8qzyzi968rgw6v',
+                  url: 'https://res.cloudinary.com/dvwri8zij/image/upload/v1732386815/NY-Penthouse3_ezovwc.jpg',
+                  filename: 'YelpCamp/NY-Penthouse3_ezovwc',
                 }
               ],
             price: price,
