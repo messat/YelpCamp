@@ -56,8 +56,13 @@ module.exports.createCampground = async (req,res, next)=>{
 module.exports.updateCampground = async(req,res)=>{
     const {id} = req.params
     const {campground} = req.body
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    }).send()
     const imgs = req.files.map(file => ({url: file.path, filename: file.filename}))
     const updateCampground = await Campground.findByIdAndUpdate(id, campground, {new: true})
+    updateCampground.geometry = geoData.body.features[0].geometry
     updateCampground.images.push(...imgs)
     await updateCampground.save()
     if(req.body.deleteImages){
