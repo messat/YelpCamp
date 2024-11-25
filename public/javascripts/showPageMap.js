@@ -1,4 +1,4 @@
-const coordinatesFinder = JSON.parse(campground)
+const coordinatesFinder = campground
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: 'map',
