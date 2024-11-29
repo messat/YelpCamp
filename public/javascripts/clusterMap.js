@@ -1,6 +1,6 @@
 mapboxgl.accessToken = mapBoxToken;
     const map = new mapboxgl.Map({
-        container: 'map',
+        container: 'cluster-map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [-103.5917, 40.6699],
@@ -126,4 +126,5 @@ mapboxgl.accessToken = mapBoxToken;
         map.on('mouseleave', 'clusters', () => {
             map.getCanvas().style.cursor = '';
         });
+        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
     });
