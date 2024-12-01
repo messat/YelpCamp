@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const engine = require('ejs-mate')
 const ExpressError = require("./utils/ExpressError");
+const helmet = require('helmet')
 
 const campgroundRoutes = require('./routes/campground.js')
 const reviewRoutes = require('./routes/review.js')
@@ -20,6 +21,7 @@ const LocalStrategy = require('passport-local')
 const User = require('./models/user.js')
 
 const mongoSanitize = require('express-mongo-sanitize');
+const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require('./sourceUrls.js')
 
 
 async function mongooseServerConnect() {
@@ -47,10 +49,6 @@ app.engine('ejs', engine)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.use(mongoSanitize());
-app.use(methodOverride('_method'))
-app.use(express.urlencoded({ extended: true}))
-app.use(express.static(path.join(__dirname,'/public')))
 
 const sessionConfig = {
     name: 'campground_session',
@@ -63,6 +61,35 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 3
     }
 }
+
+const isDev = process.env.NODE_ENV === "development" 
+if(isDev){
+    scriptSrcUrls.push("http://localhost:3000")
+}
+
+app.use(helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob",
+                "data:",
+                "https://res.cloudinary.com/dvwri8zij/",
+                "https://images.unsplash.com/",
+                "https://plus.unsplash.com/"
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        }
+}))
+app.use(mongoSanitize());
+app.use(methodOverride('_method'))
+app.use(express.urlencoded({ extended: true}))
+app.use(express.static(path.join(__dirname,'/public')))
 app.use(session(sessionConfig))
 app.use(flash())
 
