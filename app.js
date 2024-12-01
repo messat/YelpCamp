@@ -53,6 +53,7 @@ app.use(express.urlencoded({ extended: true}))
 app.use(express.static(path.join(__dirname,'/public')))
 
 const sessionConfig = {
+    name: 'campground_session',
     secret: 'thisshouldbeabettersecret',
     resave: false,
     saveUninitialized: true,
