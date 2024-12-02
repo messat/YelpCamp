@@ -15,6 +15,8 @@ const reviewRoutes = require('./routes/review.js')
 const userRoutes = require('./routes/user.js')
 
 const session = require('express-session')
+const MongoStore = require('connect-mongo');
+
 const flash = require('connect-flash')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
@@ -22,12 +24,12 @@ const User = require('./models/user.js')
 
 const mongoSanitize = require('express-mongo-sanitize');
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require('./sourceUrls.js')
-
+// const dbUrl = process.env.DB_URL
+const dbUrl = process.env.NODE_ENV !== "production" ? 'mongodb://127.0.0.1:27017/yelp-camp' : process.env.DB_URL
 
 async function mongooseServerConnect() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
-    
+        await mongoose.connect(dbUrl)
     } catch (error) {
         console.log(error)
     }
@@ -50,7 +52,16 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret'
+    }
+})
+
 const sessionConfig = {
+    store,
     name: 'campground_session',
     secret: 'thisshouldbeabettersecret',
     resave: false,

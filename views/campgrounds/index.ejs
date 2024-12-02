@@ -4,7 +4,6 @@
     <div>
         <a href="/campgrounds/new">Add Campground</a>
     </div>
-
     <% for(const campground of campgrounds) {%>
         <div class="card mb-3">
             <div class="row">
@@ -29,10 +28,22 @@
         </div>
        <% } %>
 
-<script>
-    const mapBoxToken = '<%- process.env.MAPBOX_TOKEN %>'
-    const strCampgrounds = <%- JSON.stringify(campgrounds) %>;
-    const allCampgrounds = { features : strCampgrounds}
-</script>
+       <script>
+    const mapBoxToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const campgroundFeatures = <%- JSON.stringify(campgrounds.map(campground => ({
+        type: 'Feature',
+        geometry: campground.geometry,
+        properties: {
+            title: campground.title,
+            location: campground.location,
+            id: campground._id.toString()
+        }
+    }))) %>;
+    const allCampgrounds = {
+        type: 'FeatureCollection',
+        features: campgroundFeatures
+    };
+</script> 
+
 <script src="/javascripts/clusterMap.js"></script>
  

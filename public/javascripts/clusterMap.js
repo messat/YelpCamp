@@ -3,8 +3,8 @@ mapboxgl.accessToken = mapBoxToken;
         container: 'cluster-map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [-103.5917, 40.6699],
-        zoom: 3
+        center: [-3.435973, 54.378051],
+        zoom: 4.6
     });
 
     map.on('load', () => {

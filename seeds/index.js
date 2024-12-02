@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Campground = require('../models/campground');
 const cities = require('./cities')
-const {places, descriptors} = require('./seedHelpers')
+const {places, descriptors, phrases} = require('./seedHelpers')
 
 async function mongooseServerConnect() {
     try {
@@ -27,9 +27,10 @@ mongoose.connection.on('error', err => {
 const template = (arr)=> arr[Math.floor(Math.random() * arr.length)]
 
 const seedDB = async () => {
-    await Campground.deleteMany({})
-    for (let i=0; i< 300; i++){
-        const random1000 = Math.floor(Math.random() * 1000)
+  await Campground.deleteMany({})
+  for (let i=0; i< 300; i++){
+    const random1000 = Math.floor(Math.random() * 1025)
+    const randomPhrases = Math.floor(Math.random() * 11)
         const price = Math.floor(Math.random() * 20) + 10
         const camp = new Campground({
             author: '67422100f1f62550c661fa2f',
@@ -57,7 +58,7 @@ const seedDB = async () => {
                 }
               ],
             price: price,
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo dolor ducimus maxime quaerat tenetur quidem similique nemo sapiente quia dolore illum, animi earum sequi fugiat neque ipsum quae! Tempore, inventore."
+            description: phrases[randomPhrases]
         })
         await camp.save()
     }
@@ -66,3 +67,5 @@ const seedDB = async () => {
 seedDB().then(()=>{
     mongoose.connection.close()
 })
+
+
