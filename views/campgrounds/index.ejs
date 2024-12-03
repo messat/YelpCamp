@@ -5,19 +5,19 @@
         <a href="/campgrounds/new">Add Campground</a>
     </div>
     <% for(const campground of campgrounds) {%>
-        <div class="card mb-3">
+        <div class="card mb-3 card-index">
             <div class="row">
                 <div class="col-md-4">
                     <% if(campground.images.length) { %>
-                    <img src="<%= campground.images[0].url %>" alt="" class="img-fluid" crossorigin="anonymous">
+                    <img src="<%= campground.images[0].url %>" alt="" class="img-fluid card-img" crossorigin="anonymous">
                     <% } else { %>
-                        <img src="https://res.cloudinary.com/dvwri8zij/image/upload/v1732384140/YelpCamp/c1oahqdvtlk9gi4ewq47.avif" alt="" class="img-fluid" crossorigin="anonymous">
+                        <img src="https://res.cloudinary.com/dvwri8zij/image/upload/v1732384140/YelpCamp/c1oahqdvtlk9gi4ewq47.avif" alt="" class="img-fluid card-img" crossorigin="anonymous">
                         <% } %>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><%= campground.title %></h5>
-                        <p class="card-text"><%= campground.description %></p>
+                        <p class="card-text"><%= campground.description ? campground.description.substring(0, 250) + " ..." : "hello world" %></p>
                         <p class="card-text">
                             <small class="text-muted"><%= campground.location %></small>
                         </p>

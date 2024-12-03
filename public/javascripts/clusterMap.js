@@ -3,7 +3,7 @@ mapboxgl.accessToken = mapBoxToken;
         container: 'cluster-map',
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [-3.435973, 54.378051],
-        zoom: 4.6
+        zoom: 4.45
     });
 
     map.on('load', () => {
