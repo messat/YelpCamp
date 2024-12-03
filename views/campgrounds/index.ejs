@@ -34,9 +34,11 @@
         type: 'Feature',
         geometry: campground.geometry,
         properties: {
-            title: campground.title,
-            location: campground.location,
-            id: campground._id.toString()
+            ...campground,
+            popUpMarkUp: `
+                <strong><a href="/campgrounds/${campground._id}" style="font-size: 15px;">${campground.title}</a></strong>
+                <p style="font-size: 15px;margin-top: 5px;">${campground.description ? campground.description.substring(0, 20) + "..." : ''}</p>
+            `
         }
     }))) %>;
     const allCampgrounds = {

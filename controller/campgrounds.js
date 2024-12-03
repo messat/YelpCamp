@@ -6,7 +6,7 @@ const geocoder = mbxGecoding({ accessToken: mbxBoxToken})
 
 
 module.exports.index = async (req,res) => {
-    const campgrounds = await Campground.find({})
+    const campgrounds = await Campground.find({}).lean({ virtuals: true });
     res.render('campgrounds/index', {campgrounds})
 }
 

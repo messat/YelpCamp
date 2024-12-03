@@ -24,7 +24,6 @@ const User = require('./models/user.js')
 
 const mongoSanitize = require('express-mongo-sanitize');
 const { scriptSrcUrls, styleSrcUrls, connectSrcUrls, fontSrcUrls } = require('./sourceUrls.js')
-// const dbUrl = process.env.DB_URL
 const dbUrl = process.env.NODE_ENV !== "production" ? 'mongodb://127.0.0.1:27017/yelp-camp' : process.env.DB_URL
 
 async function mongooseServerConnect() {
