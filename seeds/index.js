@@ -28,7 +28,7 @@ const template = (arr)=> arr[Math.floor(Math.random() * arr.length)]
 
 const seedDB = async () => {
   await Campground.deleteMany({})
-  for (let i=0; i< 300; i++){
+  for (let i=0; i< 5; i++){
     const random1000 = Math.floor(Math.random() * 1025)
     const randomPhrases = Math.floor(Math.random() * 11)
         const price = Math.floor(Math.random() * 20) + 10
@@ -58,7 +58,8 @@ const seedDB = async () => {
                 }
               ],
             price: price,
-            description: phrases[randomPhrases]
+            description: phrases[randomPhrases],
+            timePosted: new Date()
         })
         await camp.save()
     }
