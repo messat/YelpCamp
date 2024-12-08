@@ -1,6 +1,6 @@
 <% layout('layout/boilerplate') -%>
         <div class="row">
-            <h1 class="text-center">Edit Campground</h1>
+            <h1 class="text-center display-4">Edit Campground</h1>
             <div class="col-md-6 offset-md-3">
                 <form action=<%=  `/campgrounds/${findCampgroundById._id}?_method=PUT` %> method="POST" novalidate class="validated-form" enctype='multipart/form-data'>
                     <div class="mb-3">
@@ -26,7 +26,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="price">Campground Price</label>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="price-label">$</span>
+                        <span class="input-group-text" id="price-label">£</span>
                         <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
                         aria-describedby="price-label" name="campground[price]" value="<%= findCampgroundById.price %>" required>
                         <div class="valid-feedback">
@@ -59,17 +59,19 @@
                   </div>
                   <div class="mb-3">
                     <% findCampgroundById.images.forEach((img, i) => { %>
-                      <img src="<%= img.thumbnail %>"  class="img-thumbnail" alt="" crossorigin="anonymous">
+                      <img src="<%= img.thumbnail %>"  class="img-thumbnail mb-4 mx-auto" alt="" crossorigin="anonymous">
                       <div class="form-check-inline">
                         <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
                         <label for="image-<%= i %>">Delete?</label>
                       </div>
                       <% }) %>
                   </div>
-                    <div class="mb-3">
-                        <button class="btn btn-info">Update Campground</button>
+                    <div class="mb-3 col-md-6 offset-md-4 col-12">
+                        <button class="btn btn-info btn-lg text-white d-block w-100">Update Campground</button>
                     </div>
                 </form>
-                <a href=<%= `/campgrounds/${findCampgroundById._id}` %>><--Back to <%= findCampgroundById.title %></a>
-            </div>
+                <div class="mb-3 col-md-6 offset-md-4 col-12">
+                <a href=<%= `/campgrounds/${findCampgroundById._id}` %> role="button" class="btn btn-info d-block w-100 btn-lg text-white"><%= "<<< "%>Back to <%= findCampgroundById.title %></a>
+                </div>
+                </div>
         </div>
