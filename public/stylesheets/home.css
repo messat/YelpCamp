@@ -35,3 +35,21 @@ body {
     text-shadow: none;
 }
 
+@media (max-width: 576px) {
+    .header {
+        margin-top: -4.5em;
+    }
+    .cover-container {
+        max-width: 90vw;
+    }
+    .nav-masthead {
+        display: flex;
+        flex-direction: column;
+    }
+    .active {
+        margin-top: 20px;
+    }
+    .nav-link {
+        margin-bottom: 10px;
+    }
+}

@@ -1,12 +1,12 @@
 <% layout('layout/boilerplate') -%>
 
 <div class="row">
-    <h1 class="text-center">New Campground</h1>
+    <h1 class="text-center display-4">New Campground</h1>
     <div class="col-md-6 offset-md-3">
         <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]" required>
+                <input class="form-control" type="text" id="title" name="campground[title]" required autofocus>
                 <div class="valid-feedback">
                     Looks good!
                   </div>
@@ -27,7 +27,7 @@
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="price-label">$</span>
+                <span class="input-group-text" id="price-label">£</span>
                 <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
                 aria-describedby="price-label" name="campground[price]" required>
                 <div class="valid-feedback">
@@ -53,11 +53,14 @@
               <label for="images" class="mb-2">Upload Images</label>
               <input class="form-control" type="file" name="image" id="images" multiple>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-success">Add New Campground</button>
+            <div class="mb-3 col-md-6 offset-md-3 col-12">
+                <button class="btn btn-success d-block w-100">Add New Campground</button>
             </div>
         </form>
-        <a href="/campgrounds"><--Back to all Campgrounds</a>
+        <div class="mb-3 col-md-6 offset-md-3 col-12">
+        <a role="button" class="btn btn-primary d-block w-100" href="/campgrounds">Back To All Campgrounds</a>
+      </div>
+
     </div>
 </div>
 
