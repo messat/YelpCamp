@@ -1,0 +1,8 @@
+@media (max-width: 991px) {
+    .register-container {
+        margin-top: 1rem !important;
+    }
+    .login-container {
+        margin-top: 1rem !important;
+    }
+}
